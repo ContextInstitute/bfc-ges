@@ -636,38 +636,33 @@ function ass_digest_format_item( $item, $type ) {
 	$author_name = bp_core_get_user_displayname ($item_author);
 	// $author_name = bbp_get_reply_author_link( array( 'post_id' => $secondary_id, 'type' => 'name') );
 	$topic_id = bbp_get_reply_topic_id( $secondary_id );
-	$topic_title = bbp_get_topic_title( $topic_id );
+	// $topic_title = bbp_get_topic_title( $topic_id );
 
 	/* Activity timestamp */
 	$timestamp = strtotime( $item->date_recorded );
 
-	$post_date = get_post_time( 'M j, Y', false, $secondary_id );
-	$nice_date = bfc_nice_date ($post_date);
+	$post_timestamp = get_post_time( 'U', true, $secondary_id );
+	$ges_time_since = bfc_nice_date($post_timestamp);
 
-	$time_posted = get_date_from_gmt( $item->date_recorded, get_option( 'time_format' ) );
-	$date_posted = get_date_from_gmt( $item->date_recorded, get_option( 'date_format' ) );
-
-	//$item_message = strip_tags( $action ) . ": \n";
-	// $item_message =  "<div class=\"digest-item\" {$ass_email_css['item_div']}>";
 	$item_message = '<table role="presentation" cellspacing="0" cellpadding="10px" border="0" align="center" width="100%">';
 	$item_message .= '<tbody><tr style="vertical-align: top";>';
-	$item_message .= "<td style=\"text-align: center; width: 100px; border-top: 1px #eee solid; font-size: 12px; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif\">";
+	$item_message .= "<td style=\"text-align: center; width: 100px; border-top: 1px #eee solid; font-size: 12px; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; line-height: 16px;\">";
 	// $item_message .= '<img style=\"border-radius:20%; margin: 0 auto\">' . bbp_get_reply_author_avatar( $secondary_id,  $size = 60 ) .'</div>';
 	$avatar_url = bp_core_fetch_avatar ( array('item_id' => $item_author, 'type'    => 'full', 'html'   => FALSE));
 	$item_message .= "<img src=\"$avatar_url\" srcset=\"$avatar_url' 2x'\" class=\"avatar avatar-60 photo\" height=\"60\" width=\"60\" loading=\"lazy\" style=\"border-radius: 20%;\">\n<br>";
 
-	$item_message .= "<span class=\"digest-item-action\" style=\"font-weight: 600; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif\">" . $author_name . "\n<br>";
+	$item_message .= "<span class=\"digest-item-action\" style=\"font-weight: 600; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; display: block;\">" . $author_name . "<br>\n";
 	// $item_message .= "<span class=\"digest-item-timestamp\" {$ass_email_css['item_date']}>" . sprintf( __('%s, %s', 'buddypress-group-email-subscription'), $time_posted, $date_posted ) ."</span>";
-	$item_message .= "<span class=\"digest-item-timestamp\" style=\"font-weight: 400;\"> " . $nice_date . "</span>";
+	$item_message .= "<span class=\"digest-item-timestamp\" style=\"font-weight: 400; display: block;\"> " . $ges_time_since . "</span>";
 	$item_message .=  "</span></td>";
 
 	// $item_message .= "<br><span>1: " . $item->id . " 2: " . $secondary_id . " 3: " . $topic_id . " 4: " . $topic_title . "</span>\n";
 
 	// activity content
 	if ( ! empty( $item->content ) )
-		$item_message .= "<td  class=\"digest-item\" style=\"padding: 10px 10px; border-top: 1px #eee solid; font-family:charter, Georgia, Cambria, 'Times New Roman', Times, serif\">";
+		$item_message .= "<td  class=\"digest-item\" style=\"padding: 10px 10px; border-top: 1px #eee solid; font-family:charter, Georgia, Cambria, 'Times New Roman', Times, serif;\">";
 		$item_content = wp_trim_words(stripslashes($item->content), 50, '... (<em>more on the forum</em>)');
-		$item_message .= "<span class=\"digest-item-content\" style=\"font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif\">" . apply_filters( 'ass_digest_content', $item_content, $item, $type ) . "</span>";
+		$item_message .= "<span class=\"digest-item-content\" style=\"font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif\">" . $item_content . "</span>";
 
 	// view link
 	if ( $item->type == 'activity_update' || $item->type == 'activity_comment' ) {
@@ -676,7 +671,7 @@ function ass_digest_format_item( $item, $type ) {
 		$view_link = $item->primary_link;
 	}
 
-	$item_message .= ' - <a ' . $ass_email_css['view_link'] . ' class="digest-item-view-link" href="' . ass_get_login_redirect_url( $view_link ) .'">' . __( 'View', 'buddypress-group-email-subscription' ) . '</a>';
+	$item_message .= "\n\n<br><br> - <a " . $ass_email_css['view_link'] . ' class="digest-item-view-link" href="' . ass_get_login_redirect_url( $view_link ) .'">' . __( 'View', 'buddypress-group-email-subscription' ) . '</a>';
 
 	$item_message .= "</td></tr><tbody></table>\n\n";
 
