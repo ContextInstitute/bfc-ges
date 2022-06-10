@@ -8,7 +8,7 @@ function bfc_email_topline ($email_type, $bp_email) {
 	$avatar = bp_core_fetch_avatar( array( 'item_id' => bp_loggedin_user_id(), 'type'   => 'thumb', 'width'  => '40', 'height' => '40', 'html' => false ));
 	$name = bp_core_get_userlink(bp_loggedin_user_id());
 
-	$tl_start = '<table role="presentation" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td style="vertical-align: middle;font-weight:normal;color:#7f868f;font-size:14px;">';
+	$tl_start = '<table role="presentation" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td style="vertical-align: middle; text-align: right;font-weight:normal;color:#7f868f;font-size:14px;">';
 	$tl_avatar = '</td><td style="vertical-align: middle; padding-left: 12px;"><img src="' . $avatar . '" height="39" width="39" style="border-radius: 20%;max-width: 39px;vertical-align: middle;" />';
 	$tl_end = '</td></tr></tbody></table>';
 	$topline = '';
