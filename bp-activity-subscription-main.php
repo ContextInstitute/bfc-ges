@@ -39,8 +39,8 @@ require_once( dirname( __FILE__ ) . '/classes/class-bpges-subscription.php' );
 require_once( dirname( __FILE__ ) . '/classes/class-bpges-subscription-query.php' );
 require_once( dirname( __FILE__ ) . '/classes/class-bpges-queued-item.php' );
 require_once( dirname( __FILE__ ) . '/classes/class-bpges-queued-item-query.php' );
-
 require_once( dirname( __FILE__ ) . '/classes/class-bpges-async-request.php' );
+require_once( dirname( __FILE__ ) . '/bfc-ges-functions.php' );
 
 if ( ! bp_get_option( '_ges_39_subscriptions_migrated' ) ) {
 	require( dirname( __FILE__ ) . '/classes/class-bpges-async-request-subscription-migrate.php' );
