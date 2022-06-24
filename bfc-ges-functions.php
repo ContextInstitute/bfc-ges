@@ -8,7 +8,7 @@ function bfc_email_topline ($email_type, $bp_email) {
 	$avatar = bp_core_fetch_avatar( array( 'item_id' => bp_loggedin_user_id(), 'type'   => 'thumb', 'width'  => '40', 'height' => '40', 'html' => false ));
 	$name = bp_core_get_userlink(bp_loggedin_user_id());
 
-	$tl_start = '<table role="presentation" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td style="vertical-align: middle; text-align: right;font-weight:normal;color:#7f868f;font-size:14px;">';
+	$tl_start = '<table role="presentation" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td style="vertical-align: middle; text-align: right;font-weight:normal;color:#243242;font-size:14px;">';
 	$tl_avatar = '</td><td style="vertical-align: middle; padding-left: 12px;"><img src="' . $avatar . '" height="39" width="39" style="border-radius: 20%;max-width: 39px;vertical-align: middle;" />';
 	$tl_end = '</td></tr></tbody></table>';
 	$topline = '';
@@ -105,7 +105,7 @@ add_filter( 'bp_email_set_tokens', 'bfc_set_tokens', 100, 3 );
 function bfc_set_tokens ($formatted_tokens, $tokens, $bp_email) {
 
 	$email_type = $bp_email->get('type');
-	$um_start = '<div style="font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif; color: #4e535a; font-size: 18px">';
+	$um_start = '<div style="font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif; color: #243242; font-size: 18px">';
 	$um_end = '</div>';
 	$to = $bp_email->get('to');
 	$toBPER = $to[0];
