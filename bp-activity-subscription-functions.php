@@ -107,6 +107,10 @@ function ass_group_notification_activity( BP_Activity_Activity $activity ) {
 	if ( 'groups' !== $activity->component ) {
 		return;
 	}
+	
+	if (!($activity->type == 'bbp_topic_create' || $activity->type == 'bbp_reply_create')) {
+		return;
+	}
 
 	/**
 	 * Allows activity item queuing to be prevented.
@@ -1502,14 +1506,14 @@ function ass_default_weekly_summary_activity_types( $retval, $type ) {
 		/** ACTIVITY TYPES TO RECORD FOR WEEKLY SUMMARY ******************/
 
 		// backpat items
-		case 'wiki_group_page_create' :
-		case 'new_calendar_event' :
+// 		case 'wiki_group_page_create' :
+// 		case 'new_calendar_event' :
 
 		// bbPress 2 forum topic
 		case 'bbp_topic_create' :
 
 		// activity update
-		case 'activity_update' :
+// 		case 'activity_update' :
 
 			return true;
 
