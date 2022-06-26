@@ -253,3 +253,19 @@ body.bp-legacy #buddypress div.action .ges-panel #js-dialogtooltip a {
 	display: inline-block;
 	width: auto;
 }
+
+/* BFCom additions */
+
+#groups-dir-list .group-subscription-div, #groups-list .group-subscription-div {
+    border-top: 1px solid hsl(0deg 0% 87%);
+}
+
+.buddypress .buddypress-wrap button.ges-change {
+    background-color: hsl(0deg 0% 100%);
+    color: hsl(212, 29%, 20%);
+    line-height: 19px;
+}
+
+.group-subscription-div .group-email-tooltip__content .group-sub {
+	color: #007cff
+}
