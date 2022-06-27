@@ -260,10 +260,13 @@ body.bp-legacy #buddypress div.action .ges-panel #js-dialogtooltip a {
     border-top: 1px solid hsl(0deg 0% 87%);
 }
 
+.buddypress .buddypress-wrap button.ges-change:active,
+.buddypress .buddypress-wrap button.ges-change:focus,
 .buddypress .buddypress-wrap button.ges-change {
     background-color: hsl(0deg 0% 100%);
     color: hsl(212, 29%, 20%);
     line-height: 19px;
+	box-shadow: none;
 }
 
 .group-subscription-div .group-email-tooltip__content .group-sub {
