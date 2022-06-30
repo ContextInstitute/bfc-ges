@@ -281,3 +281,20 @@ body.bp-legacy #buddypress div.action .ges-panel #js-dialogtooltip a {
 .group-subscription-div .group-email-tooltip__content .group-sub {
 	color: #007cff
 }
+
+.group-subscription-div .group-email-tooltip__content {
+	max-width: 80vw;
+}
+
+@media screen and (min-width: 641px) {
+	.group-subscription-div .group-email-tooltip__content #js-tooltip-content p {
+		line-height: 1;
+		margin-bottom: 0;
+	}
+}
+@media screen and (max-width: 640px) {
+
+	.group-subscription-div .js-dialogtooltip #tooltip-title {
+		margin-bottom: 1.5em;
+	}
+}
