@@ -661,7 +661,7 @@ function ass_digest_format_item( $item, $type ) {
 	// activity content
 	if ( ! empty( $item->content ) )
 		$item_message .= "<td  class=\"digest-item\" style=\"padding: 10px 10px; border-top: 1px #eee solid; font-family:charter, Georgia, Cambria, 'Times New Roman', Times, serif;\">";
-		$item_content = wp_trim_words(stripslashes($item->content), 50, '... (<em>more on the forum</em>)');
+		$item_content = bfc_trim_words(stripslashes($item->content), 50, '... (<em>more on the forum</em>)');
 		$item_message .= "<span class=\"digest-item-content\" style=\"font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif\">" . $item_content . "</span>";
 
 	// view link
@@ -1048,9 +1048,9 @@ function bpges_digest_css() {
 	$ass_email_css['item_action']  = 'style="color:#888;"';
 	$ass_email_css['item_date']    = 'style="font-size:85%; color:#bbb; margin-left:8px;"';
 	$ass_email_css['item_content'] = 'style="color:#333;"';
-	$ass_email_css['view_link']    = 'style="font-family: \'SF Pro Text\', \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; font-size: 14px"';
+	$ass_email_css['view_link']    = 'style="font-family: \'SF Pro Text\', \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; font-size: 14px;"';
 	$ass_email_css['item_weekly']  = 'style="color:#888; padding:4px 10px 0"'; // used in weekly in place of other item_ above
-	$ass_email_css['footer']       = 'class="ass-footer" style="margin:25px 0 0; padding-top:5px; border-top:1px #bbb solid;"';
+	$ass_email_css['footer']       = 'class="ass-footer" style="font-family: \'SF Pro Text\', \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; font-size: 14px; margin:25px 0 0; padding-top:5px; border-top:1px #bbb solid;"';
 
 	// BP 2.5+ overrides.
 	if ( true === function_exists( 'bp_send_email' ) && true === ! apply_filters( 'bp_email_use_wp_mail', false ) ) {
