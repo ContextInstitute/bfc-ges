@@ -127,7 +127,8 @@ h4.activity-subscription-settings-title {
 }
 
 .ges-ajax-processing {
-	background:url(../../buddypress/bp-themes/bp-default/_inc/images/ajax-loader.gif) no-repeat top left;
+	background:url(../../../themes/buddyboss-theme/inc/admin/assets/images/ajax-loader.gif) no-repeat top left;
+	
 	display: none;
 	height: 16px;
 	line-height: 1;
