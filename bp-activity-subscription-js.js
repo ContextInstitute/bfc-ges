@@ -76,7 +76,7 @@ jQuery(document).ready( function($) {
 			action: 'ass_group_ajax',
 			a: stheid[0],
 			group_id: stheid[1],
-			_ajax_nonce: it.parent().data( 'security' )
+			_ajax_nonce:  it.closest( "div" ).data( 'security' ),
 		};
 
 		$( '#js-tooltip-close' ).click();
