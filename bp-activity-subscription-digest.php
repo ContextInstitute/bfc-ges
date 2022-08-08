@@ -511,7 +511,7 @@ function ass_digest_format_item_group( $group_id, $sorted_for_topic, $sorted_ite
 
 	$ass_email_css = bpges_digest_css();
 
-	$group_permalink = bp_get_group_permalink( groups_get_group( array( 'group_id' => $group_id ) ) );
+	$group_permalink = ass_get_login_redirect_url( bp_get_group_permalink( groups_get_group( array( 'group_id' => $group_id ) ) ));
 	$group_name_link = '<a class="item-group-group-link" href="'.$group_permalink.'" name="'.$group_slug.'">'.$group_name.'</a>';
 
 	// $userdomain = ass_digest_get_user_domain( $user_id );
@@ -566,7 +566,7 @@ function bfc_digest_format_item_topic( $group_id, $topic_id, $sorted_items, $typ
 	}
 
 	$topic_name = bbp_get_topic_title( $topic_id );
-	$topic_permalink = bbp_get_topic_permalink( $topic_id );
+	$topic_permalink = ass_get_login_redirect_url( bbp_get_topic_permalink( $topic_id ) );
 	$topic_name_link = '<a class="item-group-group-link" href="'.$topic_permalink.'">'.$topic_name.'</a>';
 
 	// add the topic title bar
@@ -671,7 +671,7 @@ function ass_digest_format_item( $item, $type ) {
 		$view_link = $item->primary_link;
 	}
 
-	$item_message .= "\n\n<br><br> - <a " . $ass_email_css['view_link'] . ' class="digest-item-view-link" href="' . ass_get_login_redirect_url( $view_link ) .'">' . __( 'View', 'buddypress-group-email-subscription' ) . '</a>';
+	$item_message .= "\n\n<br><br> - <a " . $ass_email_css['view_link'] . ' class="digest-item-view-link" href="' . ass_get_login_redirect_url( $view_link ) .'">' . __( 'Click here to view this post', 'buddypress-group-email-subscription' ) . '</a>';
 
 	$item_message .= "</td></tr><tbody></table>\n\n";
 
