@@ -661,7 +661,7 @@ function ass_digest_format_item( $item, $type ) {
 	// activity content
 	if ( ! empty( $item->content ) )
 		$item_message .= "<td  class=\"digest-item\" style=\"padding: 10px 10px; border-top: 1px #eee solid; font-family:charter, Georgia, Cambria, 'Times New Roman', Times, serif;\">";
-		$item_content = bfc_trim_words(stripslashes($item->content), 50, '... (<em>more on the forum</em>)');
+		$item_content = bfc_trim_words(stripslashes($item->content), 75, '... (<em>more on the Commons</em>)');
 		$item_message .= "<span class=\"digest-item-content\" style=\"font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif\">" . $item_content . "</span>";
 
 	// view link
