@@ -566,8 +566,15 @@ function bfc_digest_format_item_topic( $group_id, $topic_id, $sorted_items, $typ
 	}
 
 	$topic_name = bbp_get_topic_title( $topic_id );
-	$topic_permalink = ass_get_login_redirect_url( bbp_get_topic_permalink( $topic_id ) );
-	$topic_name_link = '<a class="item-group-group-link" href="'.$topic_permalink.'">'.$topic_name.'</a>';
+	$first_activity = new BP_Activity_Activity( $activity_ids[0] );
+	$first_post_id = $first_activity->secondary_item_id;
+
+	if ($first_post_id == $topic_id) {
+		$first_new_post_permalink = bbp_get_topic_permalink ($topic_id);
+	} else { 
+		$first_new_post_permalink = bbp_get_reply_url( $first_post_id );
+	} 
+	$topic_name_link = '<a class="item-group-group-link" href="'.$first_new_post_permalink.'">'.$topic_name.'</a>';
 
 	// add the topic title bar
 	$topic_message = "\n---\n\n<div class=\"item-group-title\" style=\"font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-size:20px; padding:3px; margin:20px 0 0;\">". sprintf( __( '%s', 'buddypress-group-email-subscription' ), $topic_name_link ) . "</div>\n\n";
@@ -645,24 +652,23 @@ function ass_digest_format_item( $item, $type ) {
 	$ges_time_since = bfc_nice_date($post_timestamp);
 
 	$item_message = '<table role="presentation" cellspacing="0" cellpadding="10px" border="0" align="center" width="100%">';
-	$item_message .= '<tbody><tr style="vertical-align: top";>';
-	$item_message .= "<td style=\"text-align: center; width: 100px; border-top: 1px #eee solid; font-size: 12px; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; line-height: 16px;\">";
+	$item_message .= '<tbody><tr style="border-top: 1px #eee solid;";>';
+	$item_message .= "<td style=\"vertical-align: top; text-align: left; width: 60px; font-size: 12px; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; line-height: 16px;\">";
 	// $item_message .= '<img style=\"border-radius:20%; margin: 0 auto\">' . bbp_get_reply_author_avatar( $secondary_id,  $size = 60 ) .'</div>';
 	$avatar_url = bp_core_fetch_avatar ( array('item_id' => $item_author, 'type'    => 'full', 'html'   => FALSE));
-	$item_message .= "<img src=\"$avatar_url\" srcset=\"$avatar_url' 2x'\" class=\"avatar avatar-60 photo\" height=\"60\" width=\"60\" loading=\"lazy\" style=\"border-radius: 20%;\">\n<br>";
+	$item_message .= "<img src=\"$avatar_url\" srcset=\"$avatar_url' 2x'\" class=\"avatar avatar-60 photo\" height=\"60\" width=\"60\" loading=\"lazy\" style=\"border-radius: 20%;\"></td>\n<br>";
 
-	$item_message .= "<span class=\"digest-item-action\" style=\"font-weight: 600; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; display: block;\">" . $author_name . "<br>\n";
+	$item_message .= "<td style=\"vertical-align: bottom\"><div class=\"digest-item-action\" style=\"font-weight: 600; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; display: block;\">" . $author_name . "<br>\n";
 	// $item_message .= "<span class=\"digest-item-timestamp\" {$ass_email_css['item_date']}>" . sprintf( __('%s, %s', 'buddypress-group-email-subscription'), $time_posted, $date_posted ) ."</span>";
-	$item_message .= "<span class=\"digest-item-timestamp\" style=\"font-weight: 400; display: block;\"> " . $ges_time_since . "</span>";
-	$item_message .=  "</span></td>";
+	$item_message .= "<div class=\"digest-item-timestamp\" style=\"font-weight: 400; display: block;\"> " . $ges_time_since . "</div></div></td></tr></tbody></table>";
 
 	// $item_message .= "<br><span>1: " . $item->id . " 2: " . $secondary_id . " 3: " . $topic_id . " 4: " . $topic_title . "</span>\n";
 
 	// activity content
 	if ( ! empty( $item->content ) )
-		$item_message .= "<td  class=\"digest-item\" style=\"padding: 10px 10px; border-top: 1px #eee solid; font-family:charter, Georgia, Cambria, 'Times New Roman', Times, serif;\">";
+		$item_message .= "<table cellspacing=\"0\" cellpadding=\"10px\" border=\"0\" align=\"center\" width=\"100%\"><tbody><tr><td class=\"digest-item\" style=\"padding: 10px 10px; font-family:charter, Georgia, Cambria, 'Times New Roman', Times, serif;\">";
 		$item_content = bfc_trim_words(stripslashes($item->content), 75, '... (<em>more on the Commons</em>)');
-		$item_message .= "<span class=\"digest-item-content\" style=\"font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif\">" . $item_content . "</span>";
+		$item_message .= "<div class=\"digest-item-content\" style=\"font-family: charter, Georgia, Cambria, \'Times New Roman\', Times, serif\">" . $item_content . "</div>";
 
 	// view link
 	if ( $item->type == 'activity_update' || $item->type == 'activity_comment' ) {
@@ -673,7 +679,7 @@ function ass_digest_format_item( $item, $type ) {
 
 	$item_message .= "\n\n<br><br> - <a " . $ass_email_css['view_link'] . ' class="digest-item-view-link" href="' . ass_get_login_redirect_url( $view_link ) .'">' . __( 'Click here to view this post', 'buddypress-group-email-subscription' ) . '</a>';
 
-	$item_message .= "</td></tr><tbody></table>\n\n";
+	$item_message .= "</td></tr></tbody></table>\n\n";
 
 	$item_message = apply_filters( 'ass_digest_format_item', $item_message, $item, $action, $timestamp, $type, $replies );
 	$item_message = ass_digest_filter( $item_message );
@@ -690,6 +696,7 @@ function ass_digest_filter( $item ) {
 	$item = wptexturize( $item );
 	$item = convert_chars( $item );
 	$item = stripslashes( $item );
+	$item = wpautop( $item );
 	return $item;
 }
 
