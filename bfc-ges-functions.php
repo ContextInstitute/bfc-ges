@@ -119,6 +119,7 @@ function bfc_set_tokens ($formatted_tokens, $tokens, $bp_email) {
 			$the_post = $recent_posts[0];
 			$post_type = $the_post['post_type'];
 			$post_id = $the_post['ID'];
+			$reply_name = '<a href="' . bbp_get_reply_url( $post_id ) . '">this new reply:</a>';
 			$topic_id = ($post_type == 'reply') ? bbp_get_reply_topic_id ($post_id) : $post_id;
 			$topic_name ='<a href="' . bbp_get_topic_permalink( $topic_id ) . '">'. bbp_get_topic_title( $topic_id ) . '</a>';
 			$forum_id = bbp_get_topic_forum_id($topic_id);
@@ -133,7 +134,7 @@ function bfc_set_tokens ($formatted_tokens, $tokens, $bp_email) {
 				$tokens['ges.subject'] .= ' created "';
 			}
 			$tokens['ges.subject'] .= bbp_get_topic_title( $topic_id ). '" in ' . $forum_title;
-			$intro_close = ($post_type == 'reply') ? 'new reply:' : 'new thread:';
+			$intro_close = ($post_type == 'reply') ? $reply_name : 'new thread:';
 			$tokens['intro'] = $group_name . ' > ' . $topic_name . ' > ' . $intro_close;
 			$tokens['usermessage'] = $um_start . wp_kses_post($tokens ['usermessage']). $um_end;
 			return $tokens;
