@@ -658,9 +658,10 @@ function ass_digest_format_item( $item, $type ) {
 	$avatar_url = bp_core_fetch_avatar ( array('item_id' => $item_author, 'type'    => 'full', 'html'   => FALSE));
 	$item_message .= "<img src=\"$avatar_url\" srcset=\"$avatar_url' 2x'\" class=\"avatar avatar-60 photo\" height=\"60\" width=\"60\" loading=\"lazy\" style=\"border-radius: 20%;\"></td>\n<br>";
 
-	$item_message .= "<td style=\"vertical-align: bottom\"><div class=\"digest-item-action\" style=\"font-weight: 600; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; display: block;\">" . $author_name . "<br>\n";
+	$item_message .= "<td style=\"vertical-align: bottom\"><div class=\"digest-item-action\" style=\"font-weight: 600; font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; display: block;\">" . $author_name;
 	// $item_message .= "<span class=\"digest-item-timestamp\" {$ass_email_css['item_date']}>" . sprintf( __('%s, %s', 'buddypress-group-email-subscription'), $time_posted, $date_posted ) ."</span>";
-	$item_message .= "<div class=\"digest-item-timestamp\" style=\"font-weight: 400; display: block;\"> " . $ges_time_since . "</div></div></td></tr></tbody></table>";
+	// $item_message .= "<div class=\"digest-item-timestamp\" style=\"font-weight: 400; display: block;\"> " . $ges_time_since . "</div>";
+	$item_message .= "</div></td></tr></tbody></table>";
 
 	// $item_message .= "<br><span>1: " . $item->id . " 2: " . $secondary_id . " 3: " . $topic_id . " 4: " . $topic_title . "</span>\n";
 
