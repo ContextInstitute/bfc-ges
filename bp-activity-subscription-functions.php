@@ -151,7 +151,7 @@ function ass_group_notification_activity( BP_Activity_Activity $activity ) {
 	$to_queue = array();
 	$subscribed_users = ass_get_subscriptions_for_group( $group_id );
 	foreach ( $subscribed_users as $user_id => $subscription_type ) {
-		$self_notify = false;
+		$self_notify = $dont_self_notify = false;
 
 		// Does the author want updates of their own forum posts?
 		if ( $activity->type == 'bbp_topic_create' || $activity->type == 'bbp_reply_create' ) {
@@ -160,7 +160,7 @@ function ass_group_notification_activity( BP_Activity_Activity $activity ) {
 
 				// Author does not want notifications of their own posts
 				if ( ! $self_notify ) {
-					continue;
+					$dont_self_notify = true;
 				}
 			}
 
@@ -241,7 +241,7 @@ function ass_group_notification_activity( BP_Activity_Activity $activity ) {
 		 */
 		$add_to_digest_queue = apply_filters( 'bp_ges_add_to_digest_queue_for_user', $add_to_digest_queue, $activity, $user_id, $subscription_type );
 
-		if ( $send_immediately ) {
+		if ( $send_immediately && !$dont_self_notify) {
 			$to_queue[] = array(
 				'user_id'       => $user_id,
 				'group_id'      => $group_id,
@@ -2097,7 +2097,7 @@ function ass_manage_members_email_status(  $user_id = '', $group = '' ) {
 	echo ' &nbsp; '.__('Change to:','buddypress-group-email-subscription').' ';
 	echo '<a href="' . wp_nonce_url( $group_url.'/no/'.$user_id, 'ass_member_email_status' ) . '">'.__('No Email','buddypress-group-email-subscription').'</a> | ';
 	echo '<a href="' . wp_nonce_url( $group_url.'/sum/'.$user_id, 'ass_member_email_status' ) . '">'.__('Weekly','buddypress-group-email-subscription').'</a> | ';
-	echo '<a href="' . wp_nonce_url( $group_url.'/dig/'.$user_id, 'ass_member_email_status' ) . '">'.__('Daily','buddypress-group-email-subscription').'</a> | ';
+	echo '<a href="' . wp_nonce_url( $group_url.'/dig/'.$user_id, 'ass_member_email_status' ) . '">'.__('Daily Digest','buddypress-group-email-subscription').'</a> | ';
 
 	if ( ass_get_forum_type() ) {
 		echo '<a href="' . wp_nonce_url( $group_url.'/sub/'.$user_id, 'ass_member_email_status' ) . '">'.__('New Topics','buddypress-group-email-subscription').'</a> | ';

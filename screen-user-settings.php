@@ -76,7 +76,7 @@ function ass_group_subscription_notification_settings() {
 
 		<tr>
 			<td></td>
-			<td><?php _e( 'Receive notifications of your own posts?', 'buddypress-group-email-subscription' ) ?></td>
+			<td><?php _e( 'Receive immeditate notifications of your own posts?<br>(Your posts are always included in digests.)', 'buddypress-group-email-subscription' ) ?></td>
 
 			<td class="yes">
 				<input type="radio" name="notifications[ass_self_post_notification]" id="notification-ass-self-post-yes" value="yes" <?php if ( ass_self_post_notification( bp_displayed_user_id() ) ) { ?>checked="checked" <?php } ?>/>
