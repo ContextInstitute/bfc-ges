@@ -108,7 +108,7 @@ function ass_group_notification_activity( BP_Activity_Activity $activity ) {
 		return;
 	}
 	
-	if (!($activity->type == 'bbp_topic_create' || $activity->type == 'bbp_reply_create')) {
+	if (!($activity->type == 'bbp_topic_create' || $activity->type == 'bbp_reply_create' || $activity->type == 'bpges_notice')) {
 		return;
 	}
 
